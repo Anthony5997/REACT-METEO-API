@@ -1,5 +1,6 @@
 body {
   background: #202629;
+  overflow-x: hidden;
 }
 
 code {

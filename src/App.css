@@ -2,6 +2,7 @@
 .App {
   text-align: center;
   background-color: #0b0829;
+
 }
 
 .App-logo {
@@ -28,6 +29,8 @@
 
 .weather.card {
   margin-top:4vh;
+  width: 100%;
+  background: #0b0829;
 }
 
 .weather.card .card-content {
@@ -35,12 +38,47 @@
 }
 
 .weather.card .card-action {
-  background: #120944;
+  background: #387db1;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  
+}
+
+.weather.card .card-action .dayAction{
+  background: #0b0829;
+  color: aliceblue;
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+  border: aliceblue 1px solid;
+  cursor: pointer;
+  padding: 10px 20px 10px 20px;
+  
+}
+
+.weather.card .card-action .dayAction:hover{
+  background: #211c5c;
+  color: aliceblue;
+  cursor: pointer;
+  padding: 10px 20px 10px 20px;
+  transition: 200ms;
+  transform: scale(1.1);
+  
+}
+
+.hoursWeather{
+  align-self: center;
+}
+
+.mini-card{
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .weather .temperature {
   margin-left:4vh;
-  font-size:120px;
+  font-size:86px;
   font-family: 'Roboto', sans-serif;
   text-shadow: -1px 0 #61dafb, 0 1px #61dafb, 1px 0 #61dafb, 0 -1px #61dafb;
 }
@@ -48,4 +86,26 @@
 form .search-input{
   width: 30%;
   color: white;
+}
+
+.margin-info{
+ margin-bottom: 10px;
+}
+
+.select-city{
+  padding-top: 100px;
+  height: 500px;
+  color: white;
+}
+
+.infos-days{
+  border-left: rgb(29, 175, 29) 1px solid;
+}
+
+.hide-more-info{
+  display: none;
+}
+
+.hide-more-info.active{
+  display: block;
 }

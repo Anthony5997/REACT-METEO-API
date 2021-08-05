@@ -1,57 +1,101 @@
 import React, { Component} from 'react';
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'; 
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import SearchCity from './SearchCity';
 import Days from './Days';
 import moment from 'moment';
 
 const APIKEY = "134ff421685558cd4d547acd9c63367d"
 
 class WeatherDays extends Component{
-    state = {
-    newCity:"Lyon",
-    userInput : "",
-    day1:[],
-    day2:[],
-    day3:[],
-    day4:[],
-    day5:[],
-    resApi: false,
-    weather: []
+
+    constructor(props){
+        super(props);
+        this.state = {
+            newCity:"",
+            userInput : "",
+            day1:[],
+            day2:[],
+            day3:[],
+            day4:[],
+            day5:[],
+            resApi: false,
+            weather: [],
+            lat: "",
+            lon:""
+            }
+
+            this.geo = this.geo.bind(this)
     }
 
     componentDidMount(){
-        this.api()
+        
+        this.geo()
+      //  this.api()
+
     }
 
-    api =() =>{   
+    
+
+    geolocApi = () => {
+
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.lon}&appid=134ff421685558cd4d547acd9c63367d&units=metric`)
+            .then(res => res.json())
+            .then(async data => {
+            console.log("POSITION DATA : ", data);
+            await this.parseDate(data)
+            await this.setState({resApi : true})
+            await this.setState({newCity : data.city.name})
+            
+            console.log("STATE : ", data);
+            });
+        }
+
+    api = () =>{   
 
         fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${this.state.newCity}&units=metric&lang=fr&appid=${APIKEY}`)
         .then((res) => res.json())
         .then(async(data) => { 
-
             console.log("RETOUR API : ", data)
-             await this.parseDate(data)
-             await this.setState({resApi : true})
-        });
-        
+            await this.parseDate(data)
+            await this.setState({resApi : true})
+            await this.setState({newCity : data.city.name})
+
+        }).catch((error) => {
+            console.log(error)
+            this.setState({resApi : false})
+
+          });
+
     }
 
-    handleSubmit = (event) => {
+
+    geo_success = (position) => {
+         this.setState({lat: position.coords.latitude, lon: position.coords.longitude })
+         this.geolocApi()
+      }
+      
+    geo_error = () => {
+        alert("Sorry, no position available.");
+      }
+    
+    geo = () => {
+        navigator.geolocation.watchPosition(this.geo_success, this.geo_error);
+    } 
+
+    handleSubmit = async (event) => {
         event.preventDefault()
-        this.setState({newCity : this.state.userInput})
-        this.api()
+       await this.setState({newCity : this.state.userInput})
+       await this.setState({userInput : ""})
+       await this.api()
 
     }
 
     handleSearch = (event) => {
         this.setState({userInput : event.currentTarget.value});
-        console.log("UserInput " , event.currentTarget.value);
     }
 
 
@@ -67,6 +111,7 @@ class WeatherDays extends Component{
         const day3Date = moment().add(2, 'day').format('YYYY-MM-DD' );
         const day4Date = moment().add(3, 'day').format('YYYY-MM-DD' );
         const day5Date = moment().add(4, 'day').format('YYYY-MM-DD' );
+
         for (let index = 0; index < data.list.length; index++) {
         dateArray = data.list[index].dt_txt.split(" ", 1)
 
@@ -99,35 +144,44 @@ class WeatherDays extends Component{
             day5Array.push(data.list[index])
             this.setState({day5: day5Array})
             break;
-            default:
-                console.log("OK")
+            default: 
+                console.log("");
             }  
         }
 
-        console.log("STATE FILLED", this.state);
         }
 
     render(){
-
         return ( 
-            <Row  className="justify-content-center text-center text-white" >
-                <Col xs={12} md={6} className= 'align-self-center weather'>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Row className="mb-3">
-                            <Form.Group className="mb-3" controlId="formBasicText">
-                            <Form.Label>Rechercher une ville</Form.Label>
-                            <Form.Control type="text" placeholder="Rechercher une ville" onChange={this.handleSearch} />
-                        </Form.Group>
-                            </Row>
-                        
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
-                    </Form>
+            <div>
+                <Form>
+                    <Row className="mb-12 justify-content-center">
+                    <Col xs={12} md={3} className= 'align-self-center weather'>
+
+                        <Form.Control type="text" placeholder="Rechercher une ville" onChange={this.handleSearch} />
+                    
+                    </Col>   
+                    <Col xs={12} md={3} >
+                        <Button variant="secondary" type="submit" onClick={this.handleSubmit}>
+                            Submit
+                        </Button>
+                    </Col>
+                    </Row>
+                </Form>
+                
+                <Row>
+                    {this.state.resApi === true &&
                     <Days setter={this.setWeather} state={this.state}/>
-                </Col>   
-            </Row>
+                    }
+                    {this.state.resApi === false &&
+                    <div className="select-city">
+                        <h2> Veuillez renseigner une ville </h2>
+                    </div>
+                    }
+                </Row>
+            </div>
         )
     }
 }
 export default WeatherDays;
+

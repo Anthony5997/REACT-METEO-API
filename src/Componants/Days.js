@@ -8,8 +8,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Days(props) {
     
     
-    //console.log("moment" , moment().format());
-    console.log("props : " , props);
 
     const [numberDay , setNumberDay] = useState('')
     
@@ -36,7 +34,7 @@ function Days(props) {
 
 
   return (
-<>
+<div>
     <div>
         {numberDay === "" &&
         <CardDay weather={props.state.day1} city={props.state.newCity}/>}
@@ -54,13 +52,14 @@ function Days(props) {
         
     </div>
     <div className="card-action">
-        <div onClick={()=>day(1)}>{props.state.day1[0] ? moment(props.state.day1[0].dt_txt).format('dddd') :''} </div>
-        <div onClick={()=>day(2)}>{props.state.day2[0] ? moment(props.state.day2[0].dt_txt).format('dddd') :''} </div>
-        <div onClick={()=>day(3)}>{props.state.day3[0] ? moment(props.state.day3[0].dt_txt).format('dddd') :''} </div>
-        <div onClick={()=>day(4)}>{props.state.day4[0] ? moment(props.state.day4[0].dt_txt).format('dddd') :''} </div>
-        <div onClick={()=>day(5)}>{props.state.day5[0] ? moment(props.state.day5[0].dt_txt).format('dddd') :''} </div>
+        <div className="dayAction" onClick={()=>day(1)}>{props.state.day1[0] ? "Today" :''} </div>
+        <div className="dayAction" onClick={()=>day(2)}>{props.state.day2[0] ? "Tomorrow" :''} </div>
+        <div className="dayAction" onClick={()=>day(3)}>{props.state.day3[0] ? moment(props.state.day3[0].dt_txt).format('dddd') :''} </div>
+        <div className="dayAction" onClick={()=>day(4)}>{props.state.day4[0] ? moment(props.state.day4[0].dt_txt).format('dddd') :''} </div>
+        <div className="dayAction" onClick={()=>day(5)}>{props.state.day5[0] ? moment(props.state.day5[0].dt_txt).format('dddd') :''} </div>
     </div>
-</>
+</div>
+
   );
 }
 
