@@ -1,5 +1,5 @@
 import '../App.css';
-import React, { useState } from 'react'
+import React from 'react'
 import Container from 'react-bootstrap/Container'
 import { Line } from 'react-chartjs-2';
 import moment from 'moment';
@@ -37,12 +37,7 @@ function Graph(props) {
   
   return (
    <div>
-       <Container>
-        <div>
-            <Line style={{width : "80%", margin : "0px auto 60px auto"}} data={data}/>
-        </div>
-
-       </Container>
+      <Line style={{width : "90%", heigth : "90%" ,margin : "0px auto 60px auto"}} data={data}/>
    </div>
   );
 }

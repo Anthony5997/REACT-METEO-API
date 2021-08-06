@@ -7,6 +7,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Days from './Days';
 import moment from 'moment';
+import PreviewSearch from './PreviewSearch';
+import { Link } from 'react-router-dom';
 
 const APIKEY = "134ff421685558cd4d547acd9c63367d"
 
@@ -27,18 +29,13 @@ class WeatherDays extends Component{
             lat: "",
             lon:""
             }
-
             this.geo = this.geo.bind(this)
     }
 
     componentDidMount(){
-        
         this.geo()
-      //  this.api()
-
     }
 
-    
 
     geolocApi = () => {
 
@@ -49,9 +46,12 @@ class WeatherDays extends Component{
             await this.parseDate(data)
             await this.setState({resApi : true})
             await this.setState({newCity : data.city.name})
-            
-            console.log("STATE : ", data);
-            });
+            await localStorage.setItem(this.state.newCity, JSON.stringify(this.state))        
+            }).catch((error) => {
+                console.log(error)
+                this.setState({resApi : false})
+    
+              });
         }
 
     api = () =>{   
@@ -64,6 +64,9 @@ class WeatherDays extends Component{
             await this.setState({resApi : true})
             await this.setState({newCity : data.city.name})
 
+            await localStorage.setItem(this.state.newCity, JSON.stringify(this.state))
+
+
         }).catch((error) => {
             console.log(error)
             this.setState({resApi : false})
@@ -72,15 +75,14 @@ class WeatherDays extends Component{
 
     }
 
-
     geo_success = (position) => {
          this.setState({lat: position.coords.latitude, lon: position.coords.longitude })
          this.geolocApi()
-      }
+    }
       
     geo_error = () => {
         alert("Sorry, no position available.");
-      }
+    }
     
     geo = () => {
         navigator.geolocation.watchPosition(this.geo_success, this.geo_error);
@@ -91,19 +93,18 @@ class WeatherDays extends Component{
        await this.setState({newCity : this.state.userInput})
        await this.setState({userInput : ""})
        await this.api()
-
     }
 
     handleSearch = (event) => {
         this.setState({userInput : event.currentTarget.value});
     }
 
-
     setWeather = (day)=>{
         this.setState({weather : day})
     }      
       
     parseDate = (data) =>{
+        this.setState({lat: data.city.coord.lat, lon: data.city.coord.lon})
         this.setState({day1 : [] , day2 : [],day3 : [],day4 : [],day5 : []})
         let dateArray = '';   
         const day1Date = moment().format('YYYY-MM-DD' );    
@@ -149,11 +150,12 @@ class WeatherDays extends Component{
             }  
         }
 
-        }
+    }
 
     render(){
         return ( 
-            <div>
+            <div className="main-page">
+             
                 <Form>
                     <Row className="mb-12 justify-content-center">
                     <Col xs={12} md={3} className= 'align-self-center weather'>
@@ -166,6 +168,11 @@ class WeatherDays extends Component{
                             Submit
                         </Button>
                     </Col>
+                    <Col xs={12} md={3} className= 'align-self-center weather'>
+                        <Link to='/PreviewSearch'>
+                            <Button type="submit" variant="light" onClick={this.localCity} variant='success'>local city</Button>
+                        </Link>
+                    </Col> 
                     </Row>
                 </Form>
                 

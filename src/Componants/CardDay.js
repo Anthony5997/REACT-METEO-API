@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import InfosDays from './InfosDays'
 import Graph from './Graph';
+import GlobeMap from './GlobeMap';
 
 
 function CardDay(props) {
@@ -19,12 +20,6 @@ function CardDay(props) {
             return srcImg = ""
         }
     }
-
-    // function hideGraph(){
-    //     let div = document.querySelector('.hide-more-info');
-    //     div.classList.toggle("active")
-    // }
-
 
   return (
     <Row  className="justify-content-center text-center text-white" >
@@ -46,11 +41,16 @@ function CardDay(props) {
             <InfosDays weather={props}/>
         </Col>
         <Row>
-            <p className='align-self-center'> MORE INFO </p>
+            <p className='align-self-center'> Plus D'informations </p>
         </Row>
-        <div >
+        <Row>
+        <Col xs={12} md={7}>
             <Graph weather={props.weather}/>
-        </div>
+        </Col>
+        <Col xs={12} md={5}>
+            <GlobeMap weather={props}/>
+        </Col>
+        </Row>
     </Row>
   );
 }
