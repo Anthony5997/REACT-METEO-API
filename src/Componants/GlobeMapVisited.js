@@ -22,7 +22,7 @@ const cities = getCitiesStorage()
       }));
 
   return <Globe
-    height= {500}
+    height= {350}
     globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
     bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
     backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"

@@ -165,12 +165,12 @@ class WeatherDays extends Component{
                     </Col>   
                     <Col xs={12} md={3} >
                         <Button variant="secondary" type="submit" onClick={this.handleSubmit}>
-                            Submit
+                           Rechercher
                         </Button>
                     </Col>
                     <Col xs={12} md={3} className= 'align-self-center weather'>
                         <Link to='/PreviewSearch'>
-                            <Button type="submit" variant="light" onClick={this.localCity} variant='success'>local city</Button>
+                            <div className="item-list" type="submit" variant="light" onClick={this.localCity} variant='success'>Vos Recherches précédentes</div>
                         </Link>
                     </Col> 
                     </Row>

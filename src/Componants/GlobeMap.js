@@ -1,8 +1,8 @@
 import '../App.css';
 import React, {useRef} from 'react'
+import { useEffect } from 'react';
 import Container from 'react-bootstrap/Container'
 import Globe from 'react-globe.gl';
-import moment from 'moment';
 
   
 
@@ -27,15 +27,21 @@ function GlobeMap(props) {
         lat:  element.coordinates[0],
         lng: element.coordinates[1],
       }));
-     const MAP_CENTER = { lat: lat, lng: lon, altitude: 0.4 }; 
-    const globeEl = useRef();
+     const MAP_CENTER = { lat: lat, lng: lon, altitude: 0.2 }; 
+     const globeEl = useRef();
+
+     useEffect(() => {
+      globeEl.current.pointOfView(MAP_CENTER, 8000);}, 
+      []);
+
+
   
   return (
    <div>
        <Container>
         <div>
         <Globe
-             ref={globeEl}
+              ref={globeEl}
               width={500}
               height={400}
               globeImageUrl="//unpkg.com/three-globe/example/img/earth-water.png"
@@ -45,7 +51,7 @@ function GlobeMap(props) {
               bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
               backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
               pointColor={() => 'yellow'}
-              pointAltitude={0.4}
+              pointAltitude={0.1}
               pointRadius={0.4}
               pointsMerge={true}
               animateIn ={true} 

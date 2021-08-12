@@ -6,7 +6,7 @@ function Header() {
   return ( 
     <header className="App-header">
        <Link to="/"> 
-          <img src="logo_transparent.png" className="App-logo" alt="logo"/>
+          <img src="logo-meteo.png" className="App-logo" alt="logo"/>
        </Link>
     </header>
   );

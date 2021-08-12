@@ -53,7 +53,7 @@ class PreviewSearch extends Component{
      return this.state.city.map((key)=> {
 
         return (<Col md={3} className="margin-info" key={key.name}>
-                    <Button onClick={() => this.chooseCurrentCity(key)} value={key.name} key={key.name} variant="success">{key.name}</Button>
+                    <div className="item-list" onClick={() => this.chooseCurrentCity(key)} value={key.name} key={key.name} variant="success">{key.name}</div>
                 </Col>)
      })
 }
@@ -138,10 +138,15 @@ class PreviewSearch extends Component{
     render(){
         return ( 
             <div className="PreviewCity">
-                <Row>
-                   {this.mappedCity()}
-                </Row>
+                <div className="mapped-city-style">
+                    <Row>
+                    {this.mappedCity()}
+                    </Row>
+                </div>
+                <p className="previews-search" >Recherche précédente</p>
+                <div className="globe-researches">
                  <GlobeMapVisited />
+                </div>
                 <Days state={this.state}/>
 
 

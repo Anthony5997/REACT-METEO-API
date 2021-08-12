@@ -2,6 +2,7 @@
 .App {
   text-align: center;
   background-color: #0b0829;
+  min-height: 900px;
 
 }
 
@@ -13,18 +14,27 @@ body {
 .App-logo {
   height: 100px;
   pointer-events: none;
+  justify-self: flex-start;
+
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #0b0829;
   min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  display: flex;
 }
+
+.App-header a{
+  background-color: #0b0829;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  padding-left: 30px;
+  padding-top: 20px;
+}
+
 
 .App-link {
   color: #61dafb;
@@ -33,7 +43,6 @@ body {
 /*********************WEATHER*************************/
 
 .weather.card {
-  margin-top:4vh;
   width: 100%;
   background: #0b0829;
 }
@@ -101,6 +110,39 @@ form .search-input{
   padding-top: 100px;
   height: 500px;
   color: white;
+}
+
+.item-list{
+  color:aliceblue;
+  padding: 10px;
+  border: 1px aliceblue solid;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  
+}
+
+.mapped-city-style{
+  padding: 20px;
+}
+
+.previews-search{
+  color:white;
+  font-size: 34px;
+}
+
+.globe-researches{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.item-list:hover{
+  color:black;
+  border: 1px aliceblue solid;
+  border-radius: 5px;
+  background-color: aliceblue;
+
 }
 
 .infos-days{
