@@ -26,7 +26,7 @@ const cities = getCitiesStorage()
     globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
     bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
     backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
-    width={600}
+   // width={600}
     pointsData={gData}
     pointColor={() => 'yellow'}
     pointAltitude={0.4}

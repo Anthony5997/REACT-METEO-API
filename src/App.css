@@ -3,7 +3,7 @@
   text-align: center;
   background-color: #0b0829;
   min-height: 900px;
-
+  width: 100%;
 }
 
 body {
@@ -45,6 +45,8 @@ body {
 .weather.card {
   width: 100%;
   background: #0b0829;
+  padding: 0;
+  margin: 0;
 }
 
 .weather.card .card-content {
@@ -52,37 +54,55 @@ body {
 }
 
 .weather.card .card-action {
-  background: #387db1;
+  background: #0b0829;
   display: flex;
   justify-content: space-around;
-  padding: 20px;
-  
+  flex-wrap: wrap;
+  padding-top: 20px;
 }
 
 .weather.card .card-action .dayAction{
   background: #0b0829;
   color: aliceblue;
   display: flex;
-  flex-direction: row;
   align-content: space-around;
   border: aliceblue 1px solid;
   cursor: pointer;
   padding: 10px 20px 10px 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
   
 }
 
 .weather.card .card-action .dayAction:hover{
-  background: #211c5c;
-  color: aliceblue;
+  background: aliceblue;
+  color: #0b0829;
   cursor: pointer;
   padding: 10px 20px 10px 20px;
-  transition: 200ms;
-  transform: scale(1.1);
+  transform: scale(1.05);
+  transition: 300ms;
+  margin-left: 5px;
+  margin-right: 5px;
   
 }
 
+.choose-day{
+  color : aliceblue;
+  border-top : 1px aliceblue solid;
+  padding: 10px;
+  margin-top: 30px;
+}
+
+
 .hoursWeather{
   align-self: center;
+}
+
+.no-select-city{
+  margin-top: 30px;
+  font-size: 24px;
+  color: aliceblue;
 }
 
 .mini-card{
@@ -91,7 +111,6 @@ body {
 }
 
 .weather .temperature {
-  margin-left:4vh;
   font-size:86px;
   font-family: 'Roboto', sans-serif;
   text-shadow: -1px 0 #61dafb, 0 1px #61dafb, 1px 0 #61dafb, 0 -1px #61dafb;
@@ -106,9 +125,32 @@ form .search-input{
  margin-bottom: 10px;
 }
 
+.search-button-style{
+  background-color: aliceblue !important;
+  color: #0b0829 !important;
+  border: none!important;
+}
+
+.search-button-style:hover{
+  background-color: limegreen !important;
+  color: aliceblue !important;
+  transform: scale(1.2);
+  transition: 300ms;
+}
+
+.search-button-style:focus {
+  box-shadow: none !important;
+}
+
 .select-city{
   padding-top: 100px;
   height: 500px;
+  color: white;
+}
+
+.choose-city{
+  padding-top: 80px;
+  padding-bottom: 80px;
   color: white;
 }
 
@@ -119,7 +161,33 @@ form .search-input{
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
+  display: flex;
+  justify-content: space-between;
   
+}
+
+.item-list:hover{
+  color:black;
+  border: 1px aliceblue solid;
+  border-radius: 5px;
+  background-color: aliceblue;
+  transform: scale(1.09);
+  transition: 700ms;
+}
+
+.delete-button{
+  z-index: 10;
+  background-color: transparent;
+  color: red;
+  border: 1px aliceblue solid;
+  border-radius: 5px;
+}
+
+.delete-button:hover{
+  background-color: red;
+  color: aliceblue;
+  transform: scale(1.09);
+  transition: 700ms;
 }
 
 .mapped-city-style{
@@ -132,17 +200,15 @@ form .search-input{
 }
 
 .globe-researches{
-  display: flex;
-  justify-content: center;
   width: 100%;
 }
 
-.item-list:hover{
-  color:black;
-  border: 1px aliceblue solid;
-  border-radius: 5px;
-  background-color: aliceblue;
+.globe-researches canvas{
+  width: 100% !important;
+}
 
+.globe-width canvas{
+  width: 100% !important;
 }
 
 .infos-days{
@@ -156,6 +222,8 @@ form .search-input{
 
 .main-page{
   margin-top: 30px;
+  height: 100%;
+    width: 100%;
 }
 
 /* .hide-more-info{

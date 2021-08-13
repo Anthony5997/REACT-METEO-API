@@ -7,7 +7,6 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Days from './Days';
 import moment from 'moment';
-import PreviewSearch from './PreviewSearch';
 import { Link } from 'react-router-dom';
 
 const APIKEY = "134ff421685558cd4d547acd9c63367d"
@@ -42,7 +41,6 @@ class WeatherDays extends Component{
         fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.lat}&lon=${this.state.lon}&appid=134ff421685558cd4d547acd9c63367d&units=metric`)
             .then(res => res.json())
             .then(async data => {
-            console.log("POSITION DATA : ", data);
             await this.parseDate(data)
             await this.setState({resApi : true})
             await this.setState({newCity : data.city.name})
@@ -56,7 +54,7 @@ class WeatherDays extends Component{
 
     api = () =>{   
 
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${this.state.newCity}&units=metric&lang=fr&appid=${APIKEY}`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${this.state.newCity}&units=metric&lang=en&appid=${APIKEY}`)
         .then((res) => res.json())
         .then(async(data) => { 
             console.log("RETOUR API : ", data)
@@ -146,7 +144,7 @@ class WeatherDays extends Component{
             this.setState({day5: day5Array})
             break;
             default: 
-                console.log("");
+
             }  
         }
 
@@ -156,33 +154,33 @@ class WeatherDays extends Component{
         return ( 
             <div className="main-page">
              
-                <Form>
-                    <Row className="mb-12 justify-content-center">
-                    <Col xs={12} md={3} className= 'align-self-center weather'>
+                <Form className="d-flex justify-content-center">
+                    <Row className="w-100 mb-12 justify-content-center">
+                    <Col xs={9} md={3} className= 'align-self-center weather'>
 
-                        <Form.Control type="text" placeholder="Rechercher une ville" onChange={this.handleSearch} />
+                        <Form.Control type="text" placeholder="Search a city" onChange={this.handleSearch} />
                     
                     </Col>   
-                    <Col xs={12} md={3} >
-                        <Button variant="secondary" type="submit" onClick={this.handleSubmit}>
-                           Rechercher
+                    <Col xs={2} md={3} className= 'align-self-center weather'>
+                        <Button className="search-button-style" type="submit" onClick={this.handleSubmit}>
+                          Search
                         </Button>
                     </Col>
-                    <Col xs={12} md={3} className= 'align-self-center weather'>
+                    <Col xs={11} md={3} className= 'align-self-center weather'>
                         <Link to='/PreviewSearch'>
-                            <div className="item-list" type="submit" variant="light" onClick={this.localCity} variant='success'>Vos Recherches précédentes</div>
+                            <div className="item-list d-flex justify-content-center" type="submit" variant="light" onClick={this.localCity} variant='success'>Previous Researches</div>
                         </Link>
                     </Col> 
                     </Row>
                 </Form>
                 
-                <Row>
+                <Row className="w-100 m-0">
                     {this.state.resApi === true &&
                     <Days setter={this.setWeather} state={this.state}/>
                     }
                     {this.state.resApi === false &&
                     <div className="select-city">
-                        <h2> Veuillez renseigner une ville </h2>
+                        <h2> Please choose a city </h2>
                     </div>
                     }
                 </Row>

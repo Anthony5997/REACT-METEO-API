@@ -3,8 +3,6 @@ import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Row from 'react-bootstrap/Row'; 
 import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
 import Days from './Days';
 import moment from 'moment';
 import GlobeMapVisited from './GlobeMapVisited';
@@ -18,7 +16,7 @@ class PreviewSearch extends Component{
         this.state = {
             city : [],
             currentCity : '',
-            respApi : false,
+            resApi : false,
             day1:[],
             day2:[],
             day3:[],
@@ -52,31 +50,41 @@ class PreviewSearch extends Component{
 
      return this.state.city.map((key)=> {
 
-        return (<Col md={3} className="margin-info" key={key.name}>
-                    <div className="item-list" onClick={() => this.chooseCurrentCity(key)} value={key.name} key={key.name} variant="success">{key.name}</div>
+        return (<Col xs={12} md={3} className="margin-info" key={key.name}>
+                    <Row>
+                    <Col  xs={10} md={10}>
+                        <div className="item-list" onClick={() => this.chooseCurrentCity(key)} value={key.name} key={key.name} variant="success">{key.name} </div> 
+                    </Col>
+                    <Col  xs={2} md={2} className="d-flex">
+                        <button className="delete-button" onClick={()=>this.deleteCity({key})}><i class="fa fa-close"></i></button>
+                    </Col>
+                    </Row>
                 </Col>)
      })
+}
+
+deleteCity = (key) =>{
+    localStorage.removeItem(key.key.name);
+    this.getLocalStorage()
 }
 
     async chooseCurrentCity(city){
         await this.setState({ currentCity : city.name})
         await this.apiRequest()
-        console.log(this.state.currentCity)
+        
     }
 
 
     apiRequest = () =>{   
-
+        this.setState({resApi : false})
         fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${this.state.currentCity}&units=metric&lang=fr&appid=${APIKEY}`)
         .then((res) => res.json())
         .then(async(data) => { 
-            console.log("RETOUR API SELECT CITY: ", data)
             await this.parseDate(data)
             await this.setState({resApi : true})
             await this.setState({newCity : data.city.name})
 
             await localStorage.setItem(this.state.newCity, JSON.stringify(this.state))
-
 
         }).catch((error) => {
             console.log(error)
@@ -129,7 +137,6 @@ class PreviewSearch extends Component{
             this.setState({day5: day5Array})
             break;
             default: 
-                console.log("");
             }  
         }
 
@@ -138,16 +145,25 @@ class PreviewSearch extends Component{
     render(){
         return ( 
             <div className="PreviewCity">
+                <h3 className="choose-city">Choose a city</h3>
                 <div className="mapped-city-style">
                     <Row>
-                    {this.mappedCity()}
+                        { this.state.city.length === 0 &&  <p>No city selected</p>
+                        }
+                    {this.state.city.length > 0 && this.mappedCity()}
                     </Row>
                 </div>
-                <p className="previews-search" >Recherche précédente</p>
+                <p className="previews-search" >All Previous Researches</p>
                 <div className="globe-researches">
-                 <GlobeMapVisited />
+
+                <Col xs={12} md={12}>
+                    <GlobeMapVisited />
+                </Col>
                 </div>
-                <Days state={this.state}/>
+                { this.state.currentCity.length === 0 &&  <p className="no-select-city">No city selected</p>
+                        }
+                    {this.state.currentCity.length > 0 && <Days state={this.state}/>}
+                
 
 
             </div>

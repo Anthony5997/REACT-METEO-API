@@ -1,6 +1,6 @@
 import '../App.css';
 import React from 'react'
-import Container from 'react-bootstrap/Container'
+import { Col } from 'react-bootstrap'
 import { Line } from 'react-chartjs-2';
 import moment from 'moment';
 
@@ -26,9 +26,9 @@ function Graph(props) {
         labels: hours,
         datasets: [
           {
-            label: 'Température de la journée',
+            label: 'Temperature of the day',
             data: temp,
-            fill: true,
+            fill: false,
             backgroundColor: '#387db1',
             borderColor: '#387db1',
           },
@@ -36,8 +36,10 @@ function Graph(props) {
       };
   
   return (
-   <div>
-      <Line style={{width : "90%", heigth : "90%" ,margin : "0px auto 60px auto"}} data={data}/>
+   <div className="globe-width">
+     <Col xs={12} md={12}>
+       <Line style={{width : "90%", height : "100%" ,margin : "0px auto "}} data={data}/>
+     </Col>
    </div>
   );
 }

@@ -1,7 +1,7 @@
 import '../App.css';
-import React, {useRef} from 'react'
+import React, { useRef } from 'react'
 import { useEffect } from 'react';
-import Container from 'react-bootstrap/Container'
+import { Col } from 'react-bootstrap'
 import Globe from 'react-globe.gl';
 
   
@@ -37,13 +37,12 @@ function GlobeMap(props) {
 
   
   return (
-   <div>
-       <Container>
-        <div>
+   <div className="globe-width">
+        <Col xs={12} md={12}>
         <Globe
               ref={globeEl}
-              width={500}
-              height={400}
+              //width={500}
+              height={300}
               globeImageUrl="//unpkg.com/three-globe/example/img/earth-water.png"
               pointsData={gData}
               atmosphereColor="lightskyblue"
@@ -56,9 +55,7 @@ function GlobeMap(props) {
               pointsMerge={true}
               animateIn ={true} 
             />
-        </div>
-
-       </Container>
+        </Col>
    </div>
   );
 }
